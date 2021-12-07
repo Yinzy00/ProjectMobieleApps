@@ -39,7 +39,7 @@ export class HubitatApiService {
 
   async getFullDevices(){
     let returnValue = Array<Device>();
-    return (await this.getDevices()).forEach(async d=> {
+    (await this.getDevices()).forEach(async d=> {
       returnValue.push(await this.getDeviceById(d.id));
     });
     return returnValue;
@@ -47,8 +47,7 @@ export class HubitatApiService {
 
   async getOnOffDevices(){
     
-    let returnValue = Array<OnOffDevice>();
-    return await this.getFullDevices();
+    return (await this.getFullDevices()).filter(d=>d.commands.includes("on"));
 
   }
 }

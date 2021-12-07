@@ -51,7 +51,12 @@ export class HubitatApiService {
 
   async getOnOffDevices(){
     
-    return (await this.getFullDevices()).filter(d=>d.commands.includes("on"));
-
+    var returnValue : OnOffDevice[] = [];
+    var array  =(await this.getFullDevices()).filter(d=>d.commands.includes("on"));
+    for (let i = 0; i < array.length; i++) {
+      const device = array[i];
+      returnValue.push((device as OnOffDevice));      
+    }
+    return returnValue;
   }
 }

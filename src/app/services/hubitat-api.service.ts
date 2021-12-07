@@ -38,9 +38,14 @@ export class HubitatApiService {
 
   async getFullDevices(){
     let returnValue = Array<Device>();
-    (await this.getDevices()).forEach(async d=> {
+    let devices = await this.getDevices();
+    for (let i = 0; i < devices.length; i++) {
+      const d = devices[i];
       returnValue.push(await this.getDeviceById(d.id));
-    });
+    }
+    // (await this.getDevices()).forEach(async d=> {
+    //   returnValue.push(await this.getDeviceById(d.id));
+    // });
     return returnValue;
   }
 

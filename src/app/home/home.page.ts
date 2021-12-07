@@ -16,37 +16,7 @@ export class HomePage implements OnInit{
 public test:string = 'test';
   constructor(public authService: AuthenticationService, public route: Router, public modalController: ModalController, public hubitatApiService: HubitatApiService) {}
   async ngOnInit(): Promise<void> {
-    this.devices = await this.hubitatApiService.getOnOffDevices();
-    // let dp = await this.hubitatApiService.getDevices().toPromise();
-    // this.devices = this.hubitatApiService.getOnOffDevices();
-    // let _w = [];
-    // (await this.hubitatApiService.getDevices()).forEach(async d=>{
-    //   let x =(await this.hubitatApiService.getDeviceById(d.id))
-    //   console.log(x);
-    // });
-  // let array = Array<Device>();
-  //   this.hubitatApiService.getFullDevices()
-  //   .then((res)=>{
-  //     console.log(res);
-  //     // alert(res[0]);
-  //     array = res;
-  //   })
-  //   .catch((err)=>console.log(err))
-  //   .finally(()=>{
-  //     // alert(array[0]);
-  //     this.devices = array;
-  //     console.log("done");
-  //   });
-    // this.hubitatApiService.getDevices().subscribe((res)=>{
-    //   res.forEach(d=>{
-    //     this.hubitatApiService.getDeviceById(d.id).subscribe((_res)=>{
-    //       if(_res.commands.includes("on") && _res.commands.includes("off"))
-    //       this.devices.push(_res as OnOffDevice);
-    //       console.log(this.devices);
-    //     })
-    //   });
-    // });
-    // dp.forEach(x=>this.devices.push(dp));
+    
   }
 
 

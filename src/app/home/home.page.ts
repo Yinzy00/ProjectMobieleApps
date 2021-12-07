@@ -16,6 +16,7 @@ export class HomePage implements OnInit{
 public test:string = 'test';
   constructor(public authService: AuthenticationService, public route: Router, public modalController: ModalController, public hubitatApiService: HubitatApiService) {}
   async ngOnInit(): Promise<void> {
+    this.devices = await this.hubitatApiService.getFullDevices();
     // let dp = await this.hubitatApiService.getDevices().toPromise();
     // this.devices = this.hubitatApiService.getOnOffDevices();
     // let _w = [];

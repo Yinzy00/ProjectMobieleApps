@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { resolve } from 'dns';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Device } from 'src/types/device';

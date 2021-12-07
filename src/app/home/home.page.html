@@ -6,8 +6,8 @@
     <ion-title>Dashboards</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content *ngIf="!authService.isSignedIn()"><ion-label>Login first</ion-label></ion-content>
+<ion-content *ngIf="authService.isSignedIn()">
   
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">

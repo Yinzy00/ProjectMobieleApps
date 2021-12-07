@@ -9,4 +9,8 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent {
   constructor(public authService: AuthenticationService, public route: Router) {}
+  private logOut(){
+    this.authService.signOut()
+    this.route.navigate(['home']);
+  }
 }

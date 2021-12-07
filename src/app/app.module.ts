@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import{HttpClientModule} from '@angular/common/http';
 
+import {enableIndexedDbPersistence, getFirestore, provideFirestore} from '@angular/fire/firestore';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +23,13 @@ import{HttpClientModule} from '@angular/common/http';
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     // Firebase authentication import.
     provideAuth(() => getAuth()),
+    // Firestore database import
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      // Enable offline persistence.
+      enableIndexedDbPersistence(firestore);
+      return firestore;
+    }),
     HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

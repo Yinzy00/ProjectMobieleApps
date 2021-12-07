@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { DatabaseService } from 'src/app/services/database.service';
 import { HubitatApiService } from 'src/app/services/hubitat-api.service';
 import { Dashboard } from 'src/types/dashboard';
 import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
@@ -11,7 +12,7 @@ import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
 })
 export class CreateComponent implements OnInit {
 
-  constructor(private modalController: ModalController, private hubitatApiService: HubitatApiService) {
+  constructor(private modalController: ModalController, private hubitatApiService: HubitatApiService, private dbService: DatabaseService) {
 
   }
   public devices: OnOffDevice[] = [];
@@ -31,6 +32,7 @@ export class CreateComponent implements OnInit {
       if(this.devices[i][i])
       this.newDashboard.addDevice(this.devices[i]);
     }
-    console.log(this.newDashboard);
+    this.dbService.createDashboard(this.newDashboard);
+    this.close();
   }
 }

@@ -1,3 +1,54 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-split-pane contentId="main">
+      <!--  the side menu  -->
+      <ion-menu contentId="main">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>
+              My smart home dashboard
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content *ngIf="!authService.isSignedIn()">
+          <ion-item class="ion-margin-vertical" color="light" (click)="authService.signInWithGoogle()">
+            <div slot="start">
+              <ion-icon size="large"  name="logo-google"></ion-icon>
+            </div>
+            <ion-label>Login in met Google</ion-label>
+          </ion-item>
+        </ion-content>
+        <ion-content *ngIf="authService.isSignedIn()">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img [src]="authService.getProfilePicture()">
+            </ion-avatar>
+            <ion-label>
+              <ion-list-header>{{authService.getDisplayName()}}</ion-list-header>
+              <ion-note *ngIf="authService.getCurUserEmail()"
+                        class="ion-margin-start">{{authService.getCurUserEmail()}}</ion-note>
+            </ion-label>
+          </ion-item>
+          <ion-list lines="none">
+            <ion-item (click)="authService.signOut()">
+              Logout
+            </ion-item>
+            <ion-item (click)="route.navigate(['home'])">
+              Dashboards
+            </ion-item>
+            <ion-item (click)="route.navigate(['about'])">
+              About
+            </ion-item>
+            <ion-item (click)="route.navigate(['settings'])">
+              Settings
+            </ion-item>
+          </ion-list>
+        </ion-content>
+  
+      </ion-menu>
+      <!-- the main content -->
+      <ion-router-outlet id="main">
+
+        
+      </ion-router-outlet>
+    </ion-split-pane>
 </ion-app>

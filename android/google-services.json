@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "251744276805",
+    "project_id": "mysmarthomedashboard",
+    "storage_bucket": "mysmarthomedashboard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:251744276805:android:aae146450dc1c4b1696e2c",
+        "android_client_info": {
+          "package_name": "yinzy.mysmarthomedashboar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "251744276805-5rcmf5ipqc5od2pd5jtnjoaufthiqu5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "yinzy.mysmarthomedashboar",
+            "certificate_hash": "bb287389a8293df22f81c80acdd607282f3595f7"
+          }
+        },
+        {
+          "client_id": "251744276805-0muh6gim1t45g6td92ljh8op9tjfmu1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnIkiD0T9AQEERQaquvOCRf8NYf4f4pF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "251744276805-0muh6gim1t45g6td92ljh8op9tjfmu1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

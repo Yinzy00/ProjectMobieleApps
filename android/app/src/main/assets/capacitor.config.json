@@ -1,0 +1,6 @@
+{
+	"appId": "yinzy.mysmarthomedashboard",
+	"appName": "MySmarthomeDashboard",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

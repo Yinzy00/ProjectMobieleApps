@@ -8,7 +8,14 @@
 </ion-header>
 <ion-content *ngIf="!authService.isSignedIn()"><ion-label>Login first</ion-label></ion-content>
 <ion-content *ngIf="authService.isSignedIn()">
-  
+
+  <ion-list>
+    <ion-item *ngFor="let dashboard of dashboards;">
+      <ion-label>
+        {{dashboard.Title}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button (click)="showCreateModal()">

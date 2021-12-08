@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 import { AuthenticationService } from './services/authentication.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { AuthenticationService } from './services/authentication.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public authService: AuthenticationService, public route: Router) {}
+  constructor(public authService: AuthenticationService, public route: Router, private menu: MenuController) {}
   private logOut(){
     this.authService.signOut()
     this.route.navigate(['home']);

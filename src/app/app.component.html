@@ -29,16 +29,16 @@
             </ion-label>
           </ion-item>
           <ion-list lines="none">
-            <ion-item (click)="logOut()">
+            <ion-item  (click)="logOut()">
               Logout
             </ion-item>
-            <ion-item (click)="route.navigate(['home'])">
+            <ion-item (click)="route.navigate(['home']); menu.close();">
               Dashboards
             </ion-item>
-            <ion-item (click)="route.navigate(['about'])">
+            <ion-item (click)="route.navigate(['about']); menu.close();">
               About
             </ion-item>
-            <ion-item (click)="route.navigate(['settings'])">
+            <ion-item (click)="route.navigate(['settings']); menu.close();">
               Settings
             </ion-item>
           </ion-list>

@@ -1,5 +1,6 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc } from '@angular/fire/firestore';
+import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query } from '@angular/fire/firestore';
 import { Dashboard } from 'src/types/dashboard';
 import { AuthenticationService } from './authentication.service';
 
@@ -20,7 +21,13 @@ export class DatabaseService {
 
   public async createDashboard(dashboard: Dashboard): Promise<void> {
     dashboard.UserId = this.authService.getCurUserId();
-    const _dashboard = Object.assign({ }, dashboard);
-    await addDoc(this.getCollectionRef<Dashboard>('Dashboards'), _dashboard);
+    await addDoc(this.getCollectionRef<Dashboard>('Dashboards'), Object.assign({ }, dashboard));
   }
+
+  public async getDashboards(): Promise<Dashboard[]> {
+    const results = await getDocs<Dashboard>(
+        query<Dashboard>(this.getCollectionRef('Dashboards'))
+    );
+    return results.docs.map(doc=>doc.data());
+}
 }

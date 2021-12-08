@@ -1,9 +1,9 @@
 import { Capability, Device, DeviceAttribute } from "../device";
-
-export class OnOffDevice implements Device{
-    constructor(){
+export class OnOffDevice implements Device {
+    constructor() {
 
     }
+
     capabilities: (string | Capability)[];
     commands: string[];
     id: string;
@@ -11,10 +11,12 @@ export class OnOffDevice implements Device{
     label: string;
     type: string;
     attributes: DeviceAttribute[];
-    public On():void{
-
+    public async SendCommand(url): Promise<void>{
+        let resp = await fetch(url, {
+            method:'GET'
+        });
     }
-    public Off():void{
-
+    public isOn(): boolean {
+        return this.attributes.find(a => a.name == "switch").currentValue == "on";
     }
 }

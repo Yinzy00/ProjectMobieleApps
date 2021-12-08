@@ -7,6 +7,7 @@ import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
 import { AuthenticationService } from '../services/authentication.service';
 import { DatabaseService } from '../services/database.service';
 import { HubitatApiService } from '../services/hubitat-api.service';
+import { LoadingService } from '../services/loading.service';
 import { CreateComponent } from './create/create.component';
 
 @Component({
@@ -15,16 +16,18 @@ import { CreateComponent } from './create/create.component';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public test: string = 'test';
   constructor(
-    public authService: AuthenticationService,
-    public route: Router,
-    public modalController: ModalController,
-    public hubitatApiService: HubitatApiService,
-    public dbService: DatabaseService
+    private authService: AuthenticationService,
+    private route: Router,
+    private modalController: ModalController,
+    private hubitatApiService: HubitatApiService,
+    private dbService: DatabaseService,
+    private loadingService: LoadingService
   ) { }
   async ngOnInit(): Promise<void> {
+    let loading = await this.loadingService.presentLoadingWithOptions('Loading dashboards');
     await this.loadDashboards();
+    loading.dismiss();
   }
 
   async loadDashboards() {

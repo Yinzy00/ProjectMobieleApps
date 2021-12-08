@@ -27,7 +27,7 @@
   </ion-list>
   <ion-list>
     <ion-item *ngFor="let device of (devices); let i = index;">
-      <ion-label>{{device.name}}</ion-label>
+      <ion-label>{{device.label}}</ion-label>
       <ion-checkbox color="primary" slot="end" [(ngModel)]="devices[i][i]"></ion-checkbox>
     </ion-item>
   </ion-list>

@@ -41,12 +41,14 @@ export class HomePage implements OnInit {
   dashboards: Dashboard[] = [];
 
   public async showCreateModal(id=null): Promise<void> {
-    const modal = await this.modalController.create({
-      component: CreateComponent,
-      componentProps:{
-        id:id
-      }
-    });
+    // const modal = await this.modalController.create({
+    //   component: CreateComponent,
+    //   componentProps:{
+    //     id:id
+    //   }
+    // });
+    const modal = await this.dashboardService.CreateAndUpdateDashboardModal(id);
+
     await modal.present();
     modal.onDidDismiss().then(async value => {
       await this.loadDashboards();

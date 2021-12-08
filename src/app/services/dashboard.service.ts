@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Dashboard } from 'src/types/dashboard';
+import { CreateComponent } from '../home/create/create.component';
 import { DatabaseService } from './database.service';
 
 @Injectable({
@@ -8,7 +10,8 @@ import { DatabaseService } from './database.service';
 export class DashboardService {
 
   constructor(
-    private database : DatabaseService
+    private database : DatabaseService,
+    private modalController: ModalController,
   ) { }
   public dashboards: Dashboard[];
   public async LoadDashboards():Promise<void>{
@@ -20,5 +23,13 @@ export class DashboardService {
 
     return this.dashboards.find(d=>d.Id == id);
     
+  }
+  public async CreateAndUpdateDashboardModal(id=null): Promise<HTMLIonModalElement> {
+    return await this.modalController.create({
+      component: CreateComponent,
+      componentProps: {
+        id: id
+      }
+    });
   }
 }

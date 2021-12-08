@@ -1,6 +1,6 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query, deleteDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query, deleteDoc, updateDoc, where } from '@angular/fire/firestore';
 import { Dashboard } from 'src/types/dashboard';
 import { AuthenticationService } from './authentication.service';
 
@@ -26,7 +26,7 @@ export class DatabaseService {
 
   public async getDashboards(): Promise<Dashboard[]> {
     const results = await getDocs<Dashboard>(
-      query<Dashboard>(this.getCollectionRef('Dashboards'))
+      query<Dashboard>(this.getCollectionRef('Dashboards'), where("UserId", "==", this.authService.getCurUserId()))
     );
     let returnValue: Dashboard[] = [];
     results.forEach(doc => {

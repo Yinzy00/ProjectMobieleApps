@@ -28,6 +28,13 @@ export class DatabaseService {
     const results = await getDocs<Dashboard>(
         query<Dashboard>(this.getCollectionRef('Dashboards'))
     );
-    return results.docs.map(doc=>doc.data());
+    let returnValue: Dashboard[] = [];
+    results.forEach(doc => {
+      let dashboard = doc.data();
+      dashboard.Id = doc.id;
+      returnValue.push(dashboard);
+    });
+    return returnValue;
+    // return results.docs.map(doc=>doc.data());
 }
 }

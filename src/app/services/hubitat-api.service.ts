@@ -15,10 +15,14 @@ export class HubitatApiService {
   readonly apiAccesToken = "b8829a43-4c30-495f-b1a1-112d1254db86";
   readonly apiAppId = 33;
 
-  getUrl(content) {
+  getUrl(content): string {
     return `http://192.168.0.209/apps/api/${this.apiAppId}/${content}?access_token=${this.apiAccesToken}`;
   }
-  
+
+  getCommandUrl(deviceId, command, parameter?): string {
+    return this.getUrl(`devices/${deviceId}/${command}${parameter != null ? parameter : ''}`);
+  }
+
   getDevices() {
     let returnValue = Array<Device>();
     return this.httpClient.get<Device[]>(this.getUrl("devices")).toPromise();
@@ -33,10 +37,11 @@ export class HubitatApiService {
 
 
   getDeviceById(id) {
+    console.log("GET DEVICE " + id);
     return this.httpClient.get<Device>(this.getUrl(`devices/${id}`)).toPromise();
   }
 
-  async getFullDevices(){
+  async getFullDevices() {
     let returnValue = Array<Device>();
     let devices = await this.getDevices();
     for (let i = 0; i < devices.length; i++) {
@@ -49,13 +54,13 @@ export class HubitatApiService {
     return returnValue;
   }
 
-  async getOnOffDevices(){
-    
-    var returnValue : OnOffDevice[] = [];
-    var array  =(await this.getFullDevices()).filter(d=>d.commands.includes("on"));
+  async getOnOffDevices() {
+
+    var returnValue: OnOffDevice[] = [];
+    var array = (await this.getFullDevices()).filter(d => d.commands.includes("on"));
     for (let i = 0; i < array.length; i++) {
       const device = array[i];
-      returnValue.push((device as OnOffDevice));      
+      returnValue.push((device as OnOffDevice));
     }
     return returnValue;
   }

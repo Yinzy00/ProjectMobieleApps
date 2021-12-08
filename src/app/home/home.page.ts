@@ -5,6 +5,7 @@ import { Dashboard } from 'src/types/dashboard';
 import { Device } from 'src/types/device';
 import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
 import { AuthenticationService } from '../services/authentication.service';
+import { DashboardService } from '../services/dashboard.service';
 import { DatabaseService } from '../services/database.service';
 import { HubitatApiService } from '../services/hubitat-api.service';
 import { LoadingService } from '../services/loading.service';
@@ -23,6 +24,7 @@ export class HomePage implements OnInit {
     private hubitatApiService: HubitatApiService,
     private dbService: DatabaseService,
     private loadingService: LoadingService,
+    private dashboardService: DashboardService
   ) { }
   async ngOnInit(): Promise<void> {
     let loading = await this.loadingService.presentLoadingWithOptions('Loading dashboards');
@@ -32,16 +34,21 @@ export class HomePage implements OnInit {
   }
 
   async loadDashboards() {
-    this.dashboards = await this.dbService.getDashboards();
+    await this.dashboardService.LoadDashboards().then(data=>{
+      this.dashboards = this.dashboardService.dashboards;
+    });
   }
   dashboards: Dashboard[] = [];
 
-  public async showCreateModal(): Promise<void> {
+  public async showCreateModal(id=null): Promise<void> {
     const modal = await this.modalController.create({
-      component: CreateComponent
+      component: CreateComponent,
+      componentProps:{
+        id:id
+      }
     });
     await modal.present();
-    await modal.onDidDismiss().then(async value => {
+    modal.onDidDismiss().then(async value => {
       await this.loadDashboards();
     });
   }
@@ -49,7 +56,7 @@ export class HomePage implements OnInit {
     await this.dbService.deleteDashboardById(dashboard.Id);
     await this.loadDashboards();
   }
-  public detail(dashboard): void {
-
+  public async detail(dashboard): Promise<void> {
+    await this.showCreateModal(dashboard.Id);
   }
 }

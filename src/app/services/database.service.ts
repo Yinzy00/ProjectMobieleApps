@@ -1,6 +1,6 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query, deleteDoc, updateDoc } from '@angular/fire/firestore';
 import { Dashboard } from 'src/types/dashboard';
 import { AuthenticationService } from './authentication.service';
 
@@ -39,7 +39,12 @@ export class DatabaseService {
   }
   public async deleteDashboardById(dashboardId: string): Promise<void> {
     let ref = this.getDocumentRef<Dashboard>('Dashboards', dashboardId);
-    console.log(ref);
     await deleteDoc(ref);
+  }
+
+  public async UpdateDashboard(dashboard: Dashboard){
+    let ref = this.getDocumentRef<Dashboard>('Dashboards', dashboard.Id);
+    console.log(dashboard);
+    await updateDoc<Dashboard>(ref, {Id: dashboard.Id, Devices:dashboard.Devices, Title:dashboard.Title, UserId:dashboard.UserId});
   }
 }

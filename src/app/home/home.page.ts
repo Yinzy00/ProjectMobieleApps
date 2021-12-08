@@ -22,12 +22,13 @@ export class HomePage implements OnInit {
     private modalController: ModalController,
     private hubitatApiService: HubitatApiService,
     private dbService: DatabaseService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
   ) { }
   async ngOnInit(): Promise<void> {
     let loading = await this.loadingService.presentLoadingWithOptions('Loading dashboards');
     await this.loadDashboards();
     loading.dismiss();
+    console.log(this.dashboards);
   }
 
   async loadDashboards() {
@@ -43,5 +44,12 @@ export class HomePage implements OnInit {
     await modal.onDidDismiss().then(async value => {
       await this.loadDashboards();
     });
+  }
+  public async delete(dashboard): Promise<void> {
+    await this.dbService.deleteDashboardById(dashboard.Id);
+    await this.loadDashboards();
+  }
+  public detail(dashboard): void {
+
   }
 }

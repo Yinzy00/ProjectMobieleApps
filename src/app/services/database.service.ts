@@ -1,6 +1,6 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
-import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query } from '@angular/fire/firestore';
+import { Firestore, collection, CollectionReference, doc, DocumentReference, addDoc, getDocs, query, deleteDoc } from '@angular/fire/firestore';
 import { Dashboard } from 'src/types/dashboard';
 import { AuthenticationService } from './authentication.service';
 
@@ -21,12 +21,12 @@ export class DatabaseService {
 
   public async createDashboard(dashboard: Dashboard): Promise<void> {
     dashboard.UserId = this.authService.getCurUserId();
-    await addDoc(this.getCollectionRef<Dashboard>('Dashboards'), Object.assign({ }, dashboard));
+    await addDoc(this.getCollectionRef<Dashboard>('Dashboards'), Object.assign({}, dashboard));
   }
 
   public async getDashboards(): Promise<Dashboard[]> {
     const results = await getDocs<Dashboard>(
-        query<Dashboard>(this.getCollectionRef('Dashboards'))
+      query<Dashboard>(this.getCollectionRef('Dashboards'))
     );
     let returnValue: Dashboard[] = [];
     results.forEach(doc => {
@@ -36,5 +36,10 @@ export class DatabaseService {
     });
     return returnValue;
     // return results.docs.map(doc=>doc.data());
-}
+  }
+  public async deleteDashboardById(dashboardId: string): Promise<void> {
+    let ref = this.getDocumentRef<Dashboard>('Dashboards', dashboardId);
+    console.log(ref);
+    await deleteDoc(ref);
+  }
 }

@@ -11,7 +11,7 @@
 
   <ion-list>
     <ion-item *ngFor="let dashboard of dashboards;">
-      <ion-label>
+      <ion-label (click)="route.navigate(['dashboard', dashboard.Id])">
         {{dashboard.Title}}
       </ion-label>
     </ion-item>

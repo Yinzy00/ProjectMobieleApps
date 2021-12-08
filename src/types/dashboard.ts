@@ -4,6 +4,7 @@ export class Dashboard{
     constructor(){
 
     }
+    Id: string;
     Title: string;
     Devices: OnOffDevice[] = new Array<OnOffDevice>();
     UserId: string;

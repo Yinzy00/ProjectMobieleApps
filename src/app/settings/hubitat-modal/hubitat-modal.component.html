@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close()">
+        Close
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="save()">
+        Save
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Link Hubitat hub</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!-- <ion-scroll scrollY="true"> -->
+  <ion-list>
+    <!-- <ion-item-divider>
+      <ion-label> Properties </ion-label>
+    </ion-item-divider> -->
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]='hubitatSetting.title'></ion-input>
+    </ion-item>
+    <ion-item-divider>
+      <ion-label>Settings:</ion-label>
+    </ion-item-divider>
+    <ion-item>
+      <ion-label position="floating">IP address</ion-label>
+      <ion-input [(ngModel)]="hubitatSetting.ip"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">API key</ion-label>
+      <ion-input [(ngModel)]="hubitatSetting.apiKey"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">App Id</ion-label>
+      <ion-input [(ngModel)]="hubitatSetting.appId"></ion-input>
+    </ion-item>
+  </ion-list>
+  <!-- </ion-scroll> -->
+</ion-content>

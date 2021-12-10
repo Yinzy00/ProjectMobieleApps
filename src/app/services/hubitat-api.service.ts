@@ -4,19 +4,28 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Device } from 'src/types/device';
 import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
+import { settingType } from 'src/types/settings';
+import { SettingService } from './setting.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HubitatApiService {
 
-  constructor(private httpClient: HttpClient) { }
-
-  readonly apiAccesToken = "b8829a43-4c30-495f-b1a1-112d1254db86";
-  readonly apiAppId = 33;
+  constructor(
+    private httpClient: HttpClient,
+    private settingService: SettingService
+  ) { }
 
   getUrl(content): string {
-    return `http://192.168.0.209/apps/api/${this.apiAppId}/${content}?access_token=${this.apiAccesToken}`;
+    console.log(this.settingService.getAll());
+    let setting = this.settingService.getByType(settingType.Hubitat);
+    if (setting != null) {
+      let apiAccesToken = "b8829a43-4c30-495f-b1a1-112d1254db86";
+      let apiAppId = 33;
+      return `http://192.168.0.209/apps/api/${apiAppId}/${content}?access_token=${apiAccesToken}`;
+    }
+    return null;
   }
 
   getCommandUrl(deviceId, command, parameter?): string {

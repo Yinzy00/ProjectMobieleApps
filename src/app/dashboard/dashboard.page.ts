@@ -24,9 +24,9 @@ export class DashboardPage implements OnInit {
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
     this.loadDashboardData(id);
   }
-  private dashboard: Dashboard;
-  private title: string;
-  private devices: OnOffDevice[] = [];
+  public  dashboard: Dashboard;
+  public  title: string;
+  public  devices: OnOffDevice[] = [];
 
 private async loadDashboardData(id): Promise<void>{
   this.devices = [];
@@ -49,7 +49,7 @@ private async loadDashboardData(id): Promise<void>{
   loading.dismiss();
 }
 
-  private async switchDevice(index: string) {
+public  async switchDevice(index: number) {
     let deviceId = this.devices[index].id;
     //Update device state
     let device = new OnOffDevice();
@@ -69,7 +69,7 @@ private async loadDashboardData(id): Promise<void>{
     }
 
   }
-  private async Edit() {
+  public  async Edit() {
     const modal = await this.dashboardService.CreateAndUpdateDashboardModal(this.dashboard.Id);
 
     await modal.present();

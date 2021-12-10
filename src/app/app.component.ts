@@ -10,9 +10,13 @@ import { DashboardService } from './services/dashboard.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public authService: AuthenticationService, public route: Router, private menu: MenuController) {
+  constructor(
+    public authService: AuthenticationService, 
+    public route: Router, 
+    public menu: MenuController
+    ) {
   }
-  private logOut(){
+  public  logOut(){
     this.authService.signOut()
     this.route.navigate(['home']);
   }

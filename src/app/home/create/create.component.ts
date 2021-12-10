@@ -23,14 +23,13 @@ export class CreateComponent implements OnInit {
   ) {
 
   }
-  isNew: boolean = true;
-  id: string;
+  public isNew: boolean = true;
+  private id: string;
   public devices: OnOffDevice[] = [];
   // public loading: boolean = true;
   public dashboard = new Dashboard();
   async ngOnInit() {
     if (this.id != null) {
-      console.log();
       Object.assign(this.dashboard, await this.dashboardService.getDashboardById(this.id));
       this.isNew = (this.id == null);
     }
@@ -51,7 +50,7 @@ export class CreateComponent implements OnInit {
   }
 
 
-  private close(): void {
+  public  close(): void {
     this.modalController.dismiss();
   }
   public Save(): void {
@@ -66,7 +65,7 @@ export class CreateComponent implements OnInit {
     }
     else {
       console.log("updated");
-      this.dbService.UpdateDashboard(this.dashboard);
+      this.dbService.updateDashboard(this.dashboard);
     }
     this.close();
   }

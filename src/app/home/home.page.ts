@@ -18,8 +18,8 @@ import { CreateComponent } from './create/create.component';
 })
 export class HomePage implements OnInit {
   constructor(
-    private authService: AuthenticationService,
-    private route: Router,
+    public  authService: AuthenticationService,
+    public  route: Router,
     private modalController: ModalController,
     private hubitatApiService: HubitatApiService,
     private dbService: DatabaseService,
@@ -33,9 +33,9 @@ export class HomePage implements OnInit {
     console.log(this.dashboards);
   }
 
-  async loadDashboards() {
+  private async loadDashboards() {
     await this.dashboardService.LoadDashboards().then(data=>{
-      this.dashboards = this.dashboardService.dashboards;
+        this.dashboards = this.dashboardService.dashboards;
     });
   }
   dashboards: Dashboard[] = [];

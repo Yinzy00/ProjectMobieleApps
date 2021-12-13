@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:251744276805:android:aae146450dc1c4b1696e2c",
+        "mobilesdk_app_id": "1:251744276805:android:a8de684e5e431567696e2c",
         "android_client_info": {
-          "package_name": "yinzy.mysmarthomedashboar"
+          "package_name": "yinzy.mysmarthomedashboard"
         }
       },
       "oauth_client": [
         {
-          "client_id": "251744276805-5rcmf5ipqc5od2pd5jtnjoaufthiqu5l.apps.googleusercontent.com",
+          "client_id": "251744276805-jc6915dtia30n4h6f16jdhhtgtq0b1i0.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "yinzy.mysmarthomedashboar",
-            "certificate_hash": "bb287389a8293df22f81c80acdd607282f3595f7"
+            "package_name": "yinzy.mysmarthomedashboard",
+            "certificate_hash": "7b58e0700d125d1cdf5258854f3f808c755d445a"
           }
         },
         {

@@ -3,15 +3,15 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\yarim\\.android\\MySmarthomeDashboard.jks')
-            keyAlias 'MySmarthomeDashboard'
-            keyPassword 'Admin_123'
-            storePassword 'Admin_123'
+            storeFile file('D:\\Projecten\\ProjectMobieleApps\\android\\MyKey.jks')
+            keyAlias 'key0'
+            keyPassword 'Admin123_'
+            storePassword 'Admin123_'
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "yinzy.mysmarthomedashboard"
+        applicationId 'yinzy.mysmarthomedashboard'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -27,6 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+          signingConfig signingConfigs.debug
         }
       debug {
         signingConfig signingConfigs.debug

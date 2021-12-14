@@ -12,7 +12,7 @@ export class OnOffDevice implements Device {
     type: string;
     attributes: DeviceAttribute[];
     public async SendCommand(url): Promise<void>{
-        let resp = await fetch(url, {
+        let resp = await fetch(await url, {
             method:'GET'
         });
     }

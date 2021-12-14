@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { Device } from 'src/types/device';
 import { OnOffDevice } from 'src/types/deviceTypes/onOffDevice';
-import { settingType } from 'src/types/settings';
+import { HubitatSetting, settingType } from 'src/types/settings';
 import { SettingService } from './setting.service';
 
 @Injectable({
@@ -17,24 +17,23 @@ export class HubitatApiService {
     private settingService: SettingService
   ) { }
 
-  getUrl(content): string {
+  public async getUrl(content): Promise<string> {
     console.log(this.settingService.getAll());
-    let setting = this.settingService.getByType(settingType.Hubitat);
+    let setting = (await this.settingService.getByType(settingType.Hubitat) as HubitatSetting);
     if (setting != null) {
-      let apiAccesToken = "b8829a43-4c30-495f-b1a1-112d1254db86";
-      let apiAppId = 33;
-      return `http://192.168.0.209/apps/api/${apiAppId}/${content}?access_token=${apiAccesToken}`;
+      let url: string = `http://${setting.ip}/apps/api/${setting.appId}/${content}?access_token=${setting.apiKey}`;
+      return url;
     }
     return null;
   }
 
-  getCommandUrl(deviceId, command, parameter?): string {
-    return this.getUrl(`devices/${deviceId}/${command}${parameter != null ? parameter : ''}`);
+  public async getCommandUrl(deviceId, command, parameter?): Promise<string> {
+    return await this.getUrl(`devices/${deviceId}/${command}${parameter != null ? parameter : ''}`);
   }
 
-  getDevices() {
+  public async getDevices() {
     let returnValue = Array<Device>();
-    return this.httpClient.get<Device[]>(this.getUrl("devices")).toPromise();
+    return this.httpClient.get<Device[]>(await this.getUrl("devices")).toPromise();
     // .subscribe((res)=>{
     //   returnValue = res;
     // });
@@ -45,12 +44,12 @@ export class HubitatApiService {
   }
 
 
-  getDeviceById(id) {
+  public async getDeviceById(id) {
     console.log("GET DEVICE " + id);
-    return this.httpClient.get<Device>(this.getUrl(`devices/${id}`)).toPromise();
+    return this.httpClient.get<Device>(await this.getUrl(`devices/${id}`)).toPromise();
   }
 
-  async getFullDevices() {
+  public async getFullDevices() {
     let returnValue = Array<Device>();
     let devices = await this.getDevices();
     for (let i = 0; i < devices.length; i++) {
@@ -63,7 +62,7 @@ export class HubitatApiService {
     return returnValue;
   }
 
-  async getOnOffDevices() {
+  public async getOnOffDevices() {
 
     var returnValue: OnOffDevice[] = [];
     var array = (await this.getFullDevices()).filter(d => d.commands.includes("on"));

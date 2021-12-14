@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthenticationService } from './services/authentication.service';
@@ -13,7 +14,8 @@ export class AppComponent {
   constructor(
     public authService: AuthenticationService, 
     public route: Router, 
-    public menu: MenuController
+    public menu: MenuController,
+    public fireBaseApp: FirebaseApp
     ) {
   }
   public  logOut(){

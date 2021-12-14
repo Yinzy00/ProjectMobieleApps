@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Auth } from '@angular/fire/auth';
+import { Auth, signInWithCredential } from '@angular/fire/auth';
+import {GoogleAuthProvider, signOut, User} from 'firebase/auth';
 import { Router } from '@angular/router';
-import { User } from '@firebase/auth';
 import { promise } from 'selenium-webdriver';
 import {FirebaseAuthentication} from '@robingenz/capacitor-firebase-authentication';
+import { Capacitor, CapacitorGlobal } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +40,22 @@ export class AuthenticationService {
   }
 
   public async signInWithGoogle() : Promise<void>{
-    const {credential: {idToken, accessToken}} = await FirebaseAuthentication.signInWithGoogle();
-    console.log(`idToken ${idToken}`);
-    console.log(`accessToken ${accessToken}`);
-    console.log(`IsSignedIn ${this.isSignedIn()}`);
+    let resp = await FirebaseAuthentication.signInWithGoogle();
+    const {credential: {idToken, accessToken}} = resp;
+    const {user} = resp;
+    
+    if (Capacitor.isNativePlatform()) {
+      const credential = GoogleAuthProvider.credential(idToken, accessToken);
+      await signInWithCredential(this.auth, credential);
+    }
   }
 
   public async signOut(): Promise<void>{
     await FirebaseAuthentication.signOut();
+
+    if (Capacitor.isNativePlatform()) {
+      await signOut(this.auth);
+    }
   }
 
   private async setCurUser(user: User) {

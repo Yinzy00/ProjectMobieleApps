@@ -40,6 +40,9 @@ export class AuthenticationService {
 
   public async signInWithGoogle() : Promise<void>{
     const {credential: {idToken, accessToken}} = await FirebaseAuthentication.signInWithGoogle();
+    console.log(`idToken ${idToken}`);
+    console.log(`accessToken ${accessToken}`);
+    console.log(`IsSignedIn ${this.isSignedIn()}`);
   }
 
   public async signOut(): Promise<void>{

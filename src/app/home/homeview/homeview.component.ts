@@ -1,0 +1,63 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { DashboardService } from 'src/app/services/dashboard.service';
+import { DatabaseService } from 'src/app/services/database.service';
+import { HubitatApiService } from 'src/app/services/hubitat-api.service';
+import { LoadingService } from 'src/app/services/loading.service';
+import { Dashboard } from 'src/types/dashboard';
+
+@Component({
+  selector: 'app-homeview',
+  templateUrl: './homeview.component.html',
+  styleUrls: ['./homeview.component.scss'],
+})
+export class HomeviewComponent implements OnInit {
+
+  constructor(
+    public  authService: AuthenticationService,
+    public  route: Router,
+    private modalController: ModalController,
+    private hubitatApiService: HubitatApiService,
+    private dbService: DatabaseService,
+    private loadingService: LoadingService,
+    private dashboardService: DashboardService
+  ) { }
+
+  async ngOnInit(): Promise<void> {
+    let loading = await this.loadingService.presentLoadingWithOptions('Loading dashboards');
+    await this.loadDashboards();
+    loading.dismiss();
+    console.log(this.dashboards);
+  }
+
+  private async loadDashboards() {
+    await this.dashboardService.LoadDashboards().then(data=>{
+        this.dashboards = this.dashboardService.dashboards;
+    });
+  }
+  dashboards: Dashboard[] = [];
+
+  public async showCreateModal(id=null): Promise<void> {
+    // const modal = await this.modalController.create({
+    //   component: CreateComponent,
+    //   componentProps:{
+    //     id:id
+    //   }
+    // });
+    const modal = await this.dashboardService.CreateAndUpdateDashboardModal(id);
+
+    await modal.present();
+    modal.onDidDismiss().then(async value => {
+      await this.loadDashboards();
+    });
+  }
+  public async delete(dashboard): Promise<void> {
+    await this.dbService.deleteDashboardById(dashboard.Id);
+    await this.loadDashboards();
+  }
+  public async detail(dashboard): Promise<void> {
+    await this.showCreateModal(dashboard.Id);
+  }
+}

@@ -41,15 +41,8 @@ export class HomeviewComponent implements OnInit {
   }
 
   private async loadDashboards() {
-    if (this.hasInternet) {
-      //Load from firebase database
-      await this.dashboardService.LoadDashboards()
-      this.dashboards = this.dashboardService.dashboards;
-    }
-    else {
-      //Load from file system
-
-    }
+    await this.dashboardService.LoadDashboards()
+    this.dashboards = this.dashboardService.dashboards;
   }
   dashboards: Dashboard[] = [];
 

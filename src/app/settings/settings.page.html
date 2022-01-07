@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-button class="ion-margin" (click)="add()" expand="block">
+  <ion-button *ngIf="Addable" class="ion-margin" (click)="add()" expand="block">
     Add
   </ion-button>
   <ion-list>

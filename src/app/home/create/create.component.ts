@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { HubitatApiService } from 'src/app/services/hubitat-api.service';

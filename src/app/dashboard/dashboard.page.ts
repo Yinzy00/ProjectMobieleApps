@@ -24,7 +24,7 @@ export class DashboardPage implements OnInit {
     let id: string = this.activatedRoute.snapshot.paramMap.get('id');
     this.loadDashboardData(id);
   }
-  public  dashboard: Dashboard;
+  public dashboard: Dashboard;
   public  title: string;
   public  devices: OnOffDevice[] = [];
 

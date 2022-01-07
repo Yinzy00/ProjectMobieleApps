@@ -38,7 +38,7 @@
             <ion-item (click)="route.navigate(['about']); menu.close();">
               About
             </ion-item>
-            <ion-item (click)="route.navigate(['settings']); menu.close();">
+            <ion-item *ngIf="hasInternet" (click)="route.navigate(['settings']); menu.close();">
               Settings
             </ion-item>
           </ion-list>

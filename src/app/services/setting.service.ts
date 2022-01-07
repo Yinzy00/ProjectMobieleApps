@@ -48,6 +48,11 @@ export class SettingService {
   }
   public async getByType(type: settingType): Promise<Setting> {
     await this.check();
-    return this.settings.find(s => s.type == type);
+    if(this.settings!=null){
+      return this.settings.find(s => s.type == type);
+    }
+    else{
+      return null;
+    }
   }
 }

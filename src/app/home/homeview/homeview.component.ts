@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Network } from '@capacitor/network';
 import { ModalController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -15,6 +16,8 @@ import { Dashboard } from 'src/types/dashboard';
 })
 export class HomeviewComponent implements OnInit {
 
+  public hasInternet: boolean;
+
   constructor(
     public  authService: AuthenticationService,
     public  route: Router,
@@ -25,7 +28,12 @@ export class HomeviewComponent implements OnInit {
     private dashboardService: DashboardService
   ) { }
 
-  async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<void> {    
+    if ((await Network.getStatus()).connected)
+      this.hasInternet = true;
+    else
+      this.hasInternet = false;
+
     let loading = await this.loadingService.presentLoadingWithOptions('Loading dashboards');
     await this.loadDashboards();
     loading.dismiss();
@@ -33,19 +41,12 @@ export class HomeviewComponent implements OnInit {
   }
 
   private async loadDashboards() {
-    await this.dashboardService.LoadDashboards().then(data=>{
-        this.dashboards = this.dashboardService.dashboards;
-    });
+    await this.dashboardService.LoadDashboards()
+    this.dashboards = this.dashboardService.dashboards;
   }
   dashboards: Dashboard[] = [];
 
   public async showCreateModal(id=null): Promise<void> {
-    // const modal = await this.modalController.create({
-    //   component: CreateComponent,
-    //   componentProps:{
-    //     id:id
-    //   }
-    // });
     const modal = await this.dashboardService.CreateAndUpdateDashboardModal(id);
 
     await modal.present();

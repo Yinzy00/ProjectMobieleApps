@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import { Router } from '@angular/router';
+import { Network } from '@capacitor/network';
 import { MenuController } from '@ionic/angular';
 import { AuthenticationService } from './services/authentication.service';
 import { DashboardService } from './services/dashboard.service';
@@ -10,7 +11,10 @@ import { DashboardService } from './services/dashboard.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+  
+  public hasInternet:boolean = false;
+
   constructor(
     public authService: AuthenticationService, 
     public route: Router, 
@@ -18,6 +22,13 @@ export class AppComponent {
     public fireBaseApp: FirebaseApp
     ) {
   }
+  async ngOnInit(): Promise<void> {
+    if ((await Network.getStatus()).connected)
+      this.hasInternet = true;
+    else
+      this.hasInternet = false;
+  }
+
   public  logOut(){
     this.authService.signOut()
     this.route.navigate(['home']);

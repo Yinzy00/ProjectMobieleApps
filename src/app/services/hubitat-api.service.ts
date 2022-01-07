@@ -34,13 +34,6 @@ export class HubitatApiService {
   public async getDevices() {
     let returnValue = Array<Device>();
     return this.httpClient.get<Device[]>(await this.getUrl("devices")).toPromise();
-    // .subscribe((res)=>{
-    //   returnValue = res;
-    // });
-    // promise.then((data)=>{
-    //   return data;
-    // });
-    // return returnValue;
   }
 
 
